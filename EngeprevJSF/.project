@@ -3,6 +3,7 @@
 	<name>EngeprevJSF</name>
 	<comment></comment>
 	<projects>
+		<project>EngeprevJPA</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

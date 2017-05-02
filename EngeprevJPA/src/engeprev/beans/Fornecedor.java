@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +28,8 @@ public class Fornecedor implements Serializable {
 	private String cnpj;
 	private String razaosocial;
 	private String email;
+	@ManyToOne
+	private Cidade codcidade;
 	private static final long serialVersionUID = 1L;
 
 	public Fornecedor() {
@@ -65,6 +68,12 @@ public class Fornecedor implements Serializable {
 	}
 	public void setRazaosocial(String razaosocial) {
 		this.razaosocial = razaosocial;
+	}
+	public Cidade getCodcidade() {
+		return codcidade;
+	}
+	public void setCodcidade(Cidade codcidade) {
+		this.codcidade = codcidade;
 	}
    
 }

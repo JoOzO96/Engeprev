@@ -37,6 +37,8 @@ public class Funcionario implements Serializable {
 	@Valid
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "fk_funcionario")
 	private List<FuncionarioEPI> funcionarioEPI;
+	@ManyToOne
+	private Cidade codcidade;
 	private static final long serialVersionUID = 1L;
 
 	public Funcionario() {
@@ -56,6 +58,24 @@ public class Funcionario implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public Funcao getFuncao() {
+		return funcao;
+	}
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
+	}
+	public List<FuncionarioEPI> getFuncionarioEPI() {
+		return funcionarioEPI;
+	}
+	public void setFuncionarioEPI(List<FuncionarioEPI> funcionarioEPI) {
+		this.funcionarioEPI = funcionarioEPI;
+	}
+	public Cidade getCodcidade() {
+		return codcidade;
+	}
+	public void setCodcidade(Cidade codcidade) {
+		this.codcidade = codcidade;
 	}
    
 }
