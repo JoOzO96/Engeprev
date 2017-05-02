@@ -9,9 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.sistema.beans.Emitente;
-import br.sistema.beans.Usuario;
 import br.sistema.uteis.FabricaConexao;
+import engeprev.beans.Empresa;
+import engeprev.beans.Usuario;
 
 @ManagedBean
 @SessionScoped
@@ -24,7 +24,7 @@ public class LoginControle {
 	 * do sistema.
 	 */
 	private Usuario usuarioLogado = null;
-	public Emitente emitente = null;
+	public Empresa empresa = null;
 
 	public LoginControle() {
 	}
@@ -43,15 +43,17 @@ public class LoginControle {
 		qry.setParameter("usuario", usuario);
 		qry.setParameter("senha", senha);
 		List<Usuario> list = qry.getResultList();
-		emitente = (Emitente) em.createQuery("from Emitente where codemitente = 1").getResultList().get(0);
-		em.close();
 		if (list.size() <= 0) {
 			usuarioLogado = null;
 			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login ou senha inválida!", "");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			em.close();
 			return "";
+			
 		} else {
 			usuarioLogado = list.get(0);
+			empresa = (Empresa) em.createQuery("from Emitente where codemitente = " + usuarioLogado.getCodempresa()).getResultList().get(0);
+			em.close();
 			return "/Sistema/Home/Home.xhtml";
 		}
 	}
@@ -87,17 +89,16 @@ public class LoginControle {
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
 	}
-
-	public Emitente getEmitente() {
-		return emitente;
-	}
-
-	public void setEmitente(Emitente emitente) {
-		this.emitente = emitente;
-	}
-
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 	
 	

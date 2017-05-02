@@ -24,7 +24,6 @@ public class Usuario implements Serializable {
 	private String cpf;
 	private String senha;
 	private String usuario;
-	@ManyToOne
 	private Empresa codempresa;
 	@ManyToOne
 	private Cidade codcidade;
