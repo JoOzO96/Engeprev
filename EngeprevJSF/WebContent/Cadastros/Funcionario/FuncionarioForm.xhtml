@@ -25,13 +25,15 @@
 			<p:inputText id="nome" size="50"
 				value="#{funcionarioCrud.objeto.nome}" />
 				
+			<p:outputLabel value="Função: *" for="funcao" />
 			<p:autoComplete id="funcao" size="60" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
-				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
-				value="#{funcionarioCrud.objeto.codcidade}"
-				converter="cidadeConverter" maxResults="5"
-				completeMethod="#{funcionarioCrud.completeCidade}" />
+				itemLabel="#{obj.nome}" itemValue="#{obj}"
+				value="#{funcionarioCrud.objeto.funcao}"
+				converter="funcaoConverter" maxResults="5"
+				completeMethod="#{funcionarioCrud.completeFuncao}" />
 
+			<p:outputLabel value="Cidade: *" for="cidade" />
 			<p:autoComplete id="cidade" size="60" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"

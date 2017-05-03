@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import br.sistema.uteis.FabricaConexao;
+import engeprev.beans.Empresa;
+import engeprev.beans.Funcao;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CriarEstruturasBD {
@@ -5657,6 +5659,16 @@ public class CriarEstruturasBD {
 		em.getTransaction().begin();
 		em.createNativeQuery("INSERT INTO EMPRESA VALUES (1,'CENTRO','00.000.000/0001-00','','SOUZA E BENETTI','386','SOUZA E BENETTI LTDA','RUA ISACO CALEGARI',5147)").executeUpdate();
 		em.createNativeQuery("INSERT INTO USUARIO VALUES (1,'JOSE','012.840.180-08','admin','admin',5147,1);").executeUpdate();	
+		em.getTransaction().commit();
+		em.close();
+	}
+	@Test
+	public void TestCriaFuncao(){
+		EntityManager em = FabricaConexao.getEntityManager();
+		Empresa empresa = new Empresa();
+		em.getTransaction().begin();
+		empresa = em.find(Empresa.class, 1L);
+		em.merge(new Funcao(null, "Bla", empresa));
 		em.getTransaction().commit();
 		em.close();
 	}

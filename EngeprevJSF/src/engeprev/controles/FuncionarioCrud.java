@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.postgresql.util.PSQLException;
 
@@ -22,11 +24,18 @@ public class FuncionarioCrud {
 	private List<Funcionario> lista;
 	private Funcionario objeto;
 	private Usuario usuario;
-	
+
 	public void inicializarLista() {
-		usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("controleLogin");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
+		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from Funcionario where id_empresa_id_empresa = " + usuario.getId_empresa()).getResultList();
+		System.out.println(usuario.getId_empresa().getId_empresa());
+		lista = em
+				.createQuery(
+						"from Funcionario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+				.getResultList();
 		em.close();
 	}
 
@@ -34,6 +43,15 @@ public class FuncionarioCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<Cidade> results = em.createQuery(
 				"from Cidade where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+
+	public List<Cidade> completeFuncao(String query) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		List<Cidade> results = em.createQuery(
+				"from Funcao where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -47,18 +65,19 @@ public class FuncionarioCrud {
 	public String gravar() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		if (objeto.getId_funcionario() == null){		
-		em.merge(objeto);
-		em.getTransaction().commit();
-		em.close();
-		return "FuncionarioList?faces-redirect=true";
-		}else if (objeto.getId_funcionario() > 0){
+		if (objeto.getId_funcionario() == null) {
 			objeto.setId_empresa(usuario.getId_empresa());
 			em.merge(objeto);
 			em.getTransaction().commit();
 			em.close();
 			return "FuncionarioList?faces-redirect=true";
-		}else{
+		} else if (objeto.getId_funcionario() > 0) {
+			objeto.setId_empresa(usuario.getId_empresa());
+			em.merge(objeto);
+			em.getTransaction().commit();
+			em.close();
+			return "FuncionarioList?faces-redirect=true";
+		} else {
 			FacesMessage mensagem = new FacesMessage();
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 			mensagem.setSummary("Não é possivel editar esse Funcionario pois ela e padrao do sistema.");
@@ -88,7 +107,7 @@ public class FuncionarioCrud {
 				em.getTransaction().commit();
 				em.close();
 				return "FuncionarioList?faces-redirect=true";
-			}else {
+			} else {
 				FacesMessage mensagem = new FacesMessage();
 				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 				mensagem.setSummary("Não é possivel deletar esse Funcionario pois ele e padrao do sistema.");
@@ -107,8 +126,9 @@ public class FuncionarioCrud {
 					if (erro.contains("pedido")) {
 						retorna.setSummary("Nao é possivel excluir o Funcionario, pois ele esta vinculado a um Pedido");
 					} else if (erro.contains("Funcionarioendereco")) {
-						retorna.setSummary("Nao é possivel excluir o Funcionario, pois ela esta vinculada a um Funcionario");
-					}else{
+						retorna.setSummary(
+								"Nao é possivel excluir o Funcionario, pois ela esta vinculada a um Funcionario");
+					} else {
 						retorna.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
 					}
 				}

@@ -52,7 +52,9 @@ public class FiltroLogin implements Filter {
            httpResponse.sendRedirect(contextPath + "/faces/Login/LoginForm.xhtml"); 
         }
         
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap();         
+        if (sessao.getAttribute("controleLogin") == null){
+        	sessao.setAttribute("controleLogin", lc);
+        }
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}

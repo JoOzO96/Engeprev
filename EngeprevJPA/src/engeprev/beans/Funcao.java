@@ -31,6 +31,14 @@ public class Funcao implements Serializable {
 	public Funcao() {
 		super();
 	}   
+	
+	public Funcao(Long id_funcao, String nome, Empresa id_empresa) {
+		super();
+		this.id_funcao = id_funcao;
+		this.nome = nome;
+		this.id_empresa = id_empresa;
+	}
+
 	public Long getId_funcao() {
 		return this.id_funcao;
 	}

@@ -11,7 +11,7 @@ import br.sistema.uteis.FabricaConexao;
 import engeprev.beans.Funcao;
 
 
-@FacesConverter(value = "FuncaoConverter")
+@FacesConverter(value = "funcaoConverter")
 public class FuncaoConverter implements Converter {
 	@Override
 	public Funcao getAsObject(FacesContext fc, UIComponent uic, String value) {
