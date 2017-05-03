@@ -24,9 +24,10 @@ public class Usuario implements Serializable {
 	private String cpf;
 	private String senha;
 	private String usuario;
-	private Empresa codempresa;
 	@ManyToOne
 	private Cidade codcidade;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public Usuario() {
@@ -67,17 +68,22 @@ public class Usuario implements Serializable {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public Empresa getCodempresa() {
-		return codempresa;
-	}
-	public void setCodempresa(Empresa codempresa) {
-		this.codempresa = codempresa;
-	}
 	public Cidade getCodcidade() {
 		return codcidade;
 	}
 	public void setCodcidade(Cidade codcidade) {
 		this.codcidade = codcidade;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
+	}
+	@Override
+	public String toString() {
+		return "Usuario [id_usuario=" + id_usuario + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha
+				+ ", usuario=" + usuario + ", codcidade=" + codcidade + ", id_empresa=" + id_empresa + "]";
 	}
    
 }

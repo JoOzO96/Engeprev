@@ -39,6 +39,8 @@ public class Funcionario implements Serializable {
 	private List<FuncionarioEPI> funcionarioEPI;
 	@ManyToOne
 	private Cidade codcidade;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public Funcionario() {
@@ -76,6 +78,12 @@ public class Funcionario implements Serializable {
 	}
 	public void setCodcidade(Cidade codcidade) {
 		this.codcidade = codcidade;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

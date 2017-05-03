@@ -34,6 +34,8 @@ public class EPI implements Serializable {
 	private Double quantidade;
 	@NotNull(message="O valor unitario deve ser informado")
 	private Double valor_un;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public EPI() {
@@ -83,6 +85,12 @@ public class EPI implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

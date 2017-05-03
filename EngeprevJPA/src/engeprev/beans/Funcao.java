@@ -24,6 +24,8 @@ public class Funcao implements Serializable {
 	@NotNull(message="O nome da funcao nao pode ser nulo")
 	@NotEmpty(message="O nome da funcao nao pode ser em branco")
 	private String nome;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public Funcao() {
@@ -42,6 +44,12 @@ public class Funcao implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

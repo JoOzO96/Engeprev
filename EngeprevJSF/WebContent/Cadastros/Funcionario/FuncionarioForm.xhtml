@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:focus for="nome" />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<p:outputLabel value="Edição de Funcionario" />
+			</f:facet>
+
+			<p:outputLabel value="Código:" for="id" />
+			<p:inputText id="id" disabled="true" size="5"
+				value="#{funcionarioCrud.objeto.id_funcionario}" />
+
+			<p:outputLabel value="Nome: *" for="nome" />
+			<p:inputText id="nome" size="50"
+				value="#{funcionarioCrud.objeto.nome}" />
+				
+			<p:autoComplete id="funcao" size="60" dropdown="true"
+				multiple="false" forceSelection="true" var="obj"
+				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
+				value="#{funcionarioCrud.objeto.codcidade}"
+				converter="cidadeConverter" maxResults="5"
+				completeMethod="#{funcionarioCrud.completeCidade}" />
+
+			<p:autoComplete id="cidade" size="60" dropdown="true"
+				multiple="false" forceSelection="true" var="obj"
+				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
+				value="#{funcionarioCrud.objeto.codcidade}"
+				converter="cidadeConverter" maxResults="5"
+				completeMethod="#{funcionarioCrud.completeCidade}" />
+
+
+			<f:facet name="footer">
+				<p:commandButton value="Gravar" action="#{funcionarioCrud.gravar}"
+					ajax="false" icon="fa fa-check fa-lg"
+					style="width:88px;height:20px" />
+				<p:commandButton value="Cancelar"
+					action="#{funcionarioCrud.cancelar}" ajax="false" immediate="true"
+					icon="fa fa-close fa-lg" style="width:88px;height:20px" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+
+	
+	<p:dialog header="Cidades" widgetVar="dialogoCid" width="800"
+		height="600" resizable="false" modal="true">
+
+		<iframe src="../Cidade/CidadeList.xhtml"
+			style="width: 100%; height: 100%;" frameborder="0"></iframe>
+
+	</p:dialog>
+</h:body>
+</html>

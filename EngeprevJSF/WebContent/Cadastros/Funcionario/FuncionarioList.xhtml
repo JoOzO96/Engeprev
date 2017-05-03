@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Lista de Funcionarios</title>
+</h:head>
+<h:body onload="#{funcionarioCrud.inicializarLista()}">
+	<h:form id="formLista">
+		<p:growl autoUpdate="true" />
+		<p:dataTable var="fun" value="#{funcionarioCrud.lista}" paginator="true"
+			rows="10" rowsPerPageTemplate="5,10,15"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
+{LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="Listando de {startRecord} até {endRecord} de {totalRecords}."
+			emptyMessage="Nenhum resultado encontrado">
+
+			<f:facet name="header">
+				<p:spacer height="30"></p:spacer>
+				<div align="center" style="position: absolute; top: 20px; width: 95%;">
+					<p:outputLabel  value="Listagem de Funcionarios"></p:outputLabel>
+				</div>
+				<div align="right"
+					style="position: absolute; top: 12px; width: 95%;">
+					<p:commandButton id="botaoIncluir" value="Incluir"
+						icon="fa fa-plus fa-lg" style="width:88px;height:20px"
+						action="#{funcionarioCrud.incluir}" ajax="false">
+						<p:ajax></p:ajax>
+					</p:commandButton>
+				</div>
+			</f:facet>
+			<p:column headerText="Código" sortBy="#{fun.id_funcionario}"
+				filterBy="#{fun.id_funcionario}" filterMatchMode="exact">
+				<h:outputText value="#{fun.id_funcionario}" />
+			</p:column>
+
+			<p:column headerText="Nome:" sortBy="#{fun.nome}"
+				filterBy="#{fun.nome}" filterMatchMode="contains">
+				<h:outputText value="#{fun.nome}" />
+			</p:column>
+
+			<p:column headerText="Função:" sortBy="#{fun.funcao.nome}" filterBy="#{fun.funcao.nome}"
+				filterMatchMode="contains">
+				<h:outputText value="#{fun.funcao.nome}" />
+			</p:column>
+
+			<p:column headerText="Alterar" width="90">
+				<p:commandButton action="#{funcionarioCrud.alterar(fun.id_funcionario)}"
+					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
+					ajax="false" />
+			</p:column>
+			<p:column headerText="Excluir" width="90">
+				<p:commandButton action="#{funcionarioCrud.excluir(fun.id_funcionario)}"
+					ajax="true" icon="fa fa-close fa-lg" style="width:88px;height:20px"
+					onclick="if (!confirm('Confirma a exclusão?')) return false" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+
+</html>

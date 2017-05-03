@@ -31,6 +31,8 @@ public class FuncionarioExame implements Serializable {
 	private Date datavalidade;
 	@NotNull(message="O funcionario deve ser informado")
 	private Funcionario id_funcionario;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public FuncionarioExame() {
@@ -69,6 +71,12 @@ public class FuncionarioExame implements Serializable {
 
 	public void setId_funcionario(Funcionario id_funcionario) {
 		this.id_funcionario = id_funcionario;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

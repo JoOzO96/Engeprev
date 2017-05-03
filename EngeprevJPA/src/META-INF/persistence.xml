@@ -14,8 +14,8 @@
 		<class>engeprev.beans.FuncionarioAudiometria</class>
 		<class>engeprev.beans.Usuario</class>
 		<class>engeprev.beans.Empresa</class>
+		<class>engeprev.beans.Cidade</class>
 		<properties>
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/engeprev"/>
 			<property name="javax.persistence.jdbc.user" value="postgres"/>
 			<property name="javax.persistence.jdbc.password" value="masterkey"/>

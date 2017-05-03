@@ -5615,9 +5615,9 @@ public class CriarEstruturasBD {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
 		BigInteger result = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('cidadeid', 5566, true)").getSingleResult();
-//		BigInteger result1 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_cliente', 2, true)").getSingleResult();
+		BigInteger result1 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_empresa', 2, true)").getSingleResult();
 //		BigInteger result2 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_situacao', 5, true)").getSingleResult();
-//		BigInteger result3 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_usuario', 2, true)").getSingleResult();
+		BigInteger result3 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_usuario', 2, true)").getSingleResult();
 //		BigInteger result4 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_emitente', 2, true)").getSingleResult();
 		em.getTransaction().commit();
 		em.close();
@@ -5655,6 +5655,9 @@ public class CriarEstruturasBD {
 	public void TesteCriarUsuario(){
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("INSERT INTO USUARIO (nome,cpf,senha,usuario,codcidade) VALUES ('JOSE','012.840.180-08','admin','admin',5147)");
+		em.createNativeQuery("INSERT INTO EMPRESA VALUES (1,'CENTRO','00.000.000/0001-00','','SOUZA E BENETTI','386','SOUZA E BENETTI LTDA','RUA ISACO CALEGARI',5147)").executeUpdate();
+		em.createNativeQuery("INSERT INTO USUARIO VALUES (1,'JOSE','012.840.180-08','admin','admin',5147,1);").executeUpdate();	
+		em.getTransaction().commit();
+		em.close();
 	}
 }

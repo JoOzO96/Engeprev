@@ -16,7 +16,7 @@
 	overflow: visible !important;
 }
 </style>
-	<title>BarSys</title>
+	<title>Engeprev</title>
 </h:head>
 <h:body>
 	<h:body>
@@ -27,12 +27,11 @@
 					<p:menubar>
 						<p:menuitem value="Home" icon="fa fa-home fa-lg"
 							url="/faces/Sistema/Home/Home.xhtml"></p:menuitem>
+						<p:menuitem value="Funcionario" icon="fa fa-male fa-lg"
+							url="/faces/Cadastros/Funcionario/FuncionarioList.xhtml"></p:menuitem>
 						<p:menuitem value="Sair" action="#{loginControle.sair()}"
 							icon="fa fa-arrow-down fa-lg" />
-
 					</p:menubar>
-					<h:outputText
-						value="Usuário Logado: #{loginControle.usuarioLogado.usuario}" />
 				</h:form>
 
 			</p:layoutUnit>

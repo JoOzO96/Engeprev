@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +30,8 @@ public class EntregaEpi implements Serializable {
 	@NotNull(message="A data de entrega deve ser informada")
 	@Temporal(TemporalType.DATE)
 	private Date dataentrega;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public EntregaEpi() {
@@ -55,6 +58,12 @@ public class EntregaEpi implements Serializable {
 
 	public void setDataentrega(Date dataentrega) {
 		this.dataentrega = dataentrega;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

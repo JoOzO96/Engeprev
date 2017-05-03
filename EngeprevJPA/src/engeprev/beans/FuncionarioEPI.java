@@ -36,6 +36,8 @@ public class FuncionarioEPI implements Serializable {
 	@Min(message="A quantidade deve ser maio que 0", value=0)
 	private Float quantidade;
 	private Float quantidadeIdealAnual;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public FuncionarioEPI() {
@@ -101,5 +103,13 @@ public class FuncionarioEPI implements Serializable {
 
 	public void setQuantidadeIdealAnual(Float quantidadeIdealAnual) {
 		this.quantidadeIdealAnual = quantidadeIdealAnual;
+	}
+
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
 }

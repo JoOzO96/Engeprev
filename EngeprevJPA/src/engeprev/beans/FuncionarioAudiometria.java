@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +34,8 @@ public class FuncionarioAudiometria implements Serializable {
 	private Date datavalidade;
 	@NotNull(message="O funcionario deve ser informado")
 	private Funcionario id_funcionario;
+	@ManyToOne
+	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
 
 	public FuncionarioAudiometria() {
@@ -71,6 +74,12 @@ public class FuncionarioAudiometria implements Serializable {
 
 	public void setId_funcionario(Funcionario id_funcionario) {
 		this.id_funcionario = id_funcionario;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
 	}
    
 }

@@ -23,7 +23,7 @@ public class LoginControle {
 	 * informados login e senha válidos. Setado para null quando o usuário sair
 	 * do sistema.
 	 */
-	private Usuario usuarioLogado = null;
+	public Usuario usuarioLogado = null;
 	public Empresa empresa = null;
 
 	public LoginControle() {
@@ -52,7 +52,6 @@ public class LoginControle {
 			
 		} else {
 			usuarioLogado = list.get(0);
-			empresa = (Empresa) em.createQuery("from Emitente where codemitente = " + usuarioLogado.getCodempresa()).getResultList().get(0);
 			em.close();
 			return "/Sistema/Home/Home.xhtml";
 		}
