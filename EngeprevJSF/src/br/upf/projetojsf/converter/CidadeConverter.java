@@ -32,7 +32,7 @@ public class CidadeConverter implements Converter {
 	@Override
 	 public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		 if(object != null) {
-			return String.valueOf(((Cidade) object).getCodCidade());
+			return String.valueOf(((Cidade) object).getCodCidade()) + " - " + String.valueOf(((Cidade) object).getEstado());
 		 } else
 		 	return null;
 	}

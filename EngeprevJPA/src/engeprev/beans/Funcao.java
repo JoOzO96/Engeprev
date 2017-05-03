@@ -6,6 +6,7 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -23,6 +24,7 @@ public class Funcao implements Serializable {
 	private Long id_funcao;
 	@NotNull(message="O nome da funcao nao pode ser nulo")
 	@NotEmpty(message="O nome da funcao nao pode ser em branco")
+	@Length(message="O nome deve ter pelo menos {min} caractere", min=1)
 	private String nome;
 	@ManyToOne
 	private Empresa id_empresa;

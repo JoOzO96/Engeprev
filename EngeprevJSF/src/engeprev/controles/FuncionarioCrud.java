@@ -59,31 +59,26 @@ public class FuncionarioCrud {
 
 	public String incluir() {
 		objeto = new Funcionario();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
+		usuario = loginControle.getUsuarioLogado();
+		objeto.setCodcidade(usuario.getCodcidade());
 		return "FuncionarioForm?faces-redirect=true";
 	}
 
 	public String gravar() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		if (objeto.getId_funcionario() == null) {
-			objeto.setId_empresa(usuario.getId_empresa());
-			em.merge(objeto);
-			em.getTransaction().commit();
-			em.close();
-			return "FuncionarioList?faces-redirect=true";
-		} else if (objeto.getId_funcionario() > 0) {
-			objeto.setId_empresa(usuario.getId_empresa());
-			em.merge(objeto);
-			em.getTransaction().commit();
-			em.close();
-			return "FuncionarioList?faces-redirect=true";
-		} else {
-			FacesMessage mensagem = new FacesMessage();
-			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-			mensagem.setSummary("Não é possivel editar esse Funcionario pois ela e padrao do sistema.");
-			FacesContext.getCurrentInstance().addMessage("", mensagem);
-			return "";
-		}
+		objeto.setId_empresa(usuario.getId_empresa());
+		em.merge(objeto);
+		em.getTransaction().commit();
+		em.close();
+		return "FuncionarioList?faces-redirect=true";
+	}
+
+	public void testaCidadeBranco() {
+
 	}
 
 	public String cancelar() {

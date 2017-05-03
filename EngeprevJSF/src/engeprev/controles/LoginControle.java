@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 
 import br.sistema.uteis.FabricaConexao;
 import engeprev.beans.Empresa;

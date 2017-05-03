@@ -8,11 +8,11 @@
 <h:head>
 	<title></title>
 </h:head>
-<h:body>
+<h:body style="width: 100%; height: 100%;">
 	<h:form id="formEditar">
 		<p:growl></p:growl>
 		<p:focus for="nome" />
-		<p:panelGrid columns="2">
+		<p:panelGrid columns="2" style="width: 99%; height: 99%;">
 			<f:facet name="header">
 				<p:outputLabel value="Edição de Funcionario" />
 			</f:facet>
@@ -26,7 +26,7 @@
 				value="#{funcionarioCrud.objeto.nome}" />
 				
 			<p:outputLabel value="Função: *" for="funcao" />
-			<p:autoComplete id="funcao" size="60" dropdown="true"
+			<p:autoComplete id="funcao" size="50" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome}" itemValue="#{obj}"
 				value="#{funcionarioCrud.objeto.funcao}"
@@ -34,11 +34,11 @@
 				completeMethod="#{funcionarioCrud.completeFuncao}" />
 
 			<p:outputLabel value="Cidade: *" for="cidade" />
-			<p:autoComplete id="cidade" size="60" dropdown="true"
+			<p:autoComplete id="cidade" size="50" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 				value="#{funcionarioCrud.objeto.codcidade}"
-				converter="cidadeConverter" maxResults="5"
+				converter="cidadeConverter" maxResults="5" onclick="#{funcionarioCrud.testaCidadeBranco()}"
 				completeMethod="#{funcionarioCrud.completeCidade}" />
 
 
