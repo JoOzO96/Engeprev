@@ -3,6 +3,8 @@ package engeprev.beans;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -27,9 +29,9 @@ public class EPI implements Serializable {
 	@NotNull(message="O CA do EPI deve ser informado")
 	@NotEmpty(message="O CA do EPI deve ser informado")
 	private String ca;
-	@NotNull(message="Os dias de validade do EPI deve ser informado")
-	@NotEmpty(message="Os dias de validade do EPI deve ser informado")
-	private String dias;
+	@NotNull(message="A data de validade do EPI deve ser informado")
+	@Temporal(TemporalType.DATE)
+	private Date datavalidade;
 	@NotNull(message="Os dias de validade do EPI deve ser informado")
 	private Double quantidade;
 	@NotNull(message="O valor unitario deve ser informado")
@@ -40,6 +42,7 @@ public class EPI implements Serializable {
 
 	public EPI() {
 		super();
+		datavalidade = new Date();
 		quantidade = 0D;
 		valor_un = 0D;
 	}   
@@ -63,13 +66,12 @@ public class EPI implements Serializable {
 
 	public void setCa(String ca) {
 		this.ca = ca;
-	}   
-	public String getDias() {
-		return this.dias;
 	}
-
-	public void setDias(String dias) {
-		this.dias = dias;
+	public Date getDatavalidade() {
+		return datavalidade;
+	}
+	public void setDatavalidade(Date datavalidade) {
+		this.datavalidade = datavalidade;
 	}
 	public Double getQuantidade() {
 		return quantidade;

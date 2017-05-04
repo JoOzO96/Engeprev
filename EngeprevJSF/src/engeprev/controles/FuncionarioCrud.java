@@ -31,7 +31,6 @@ public class FuncionarioCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		System.out.println(usuario.getId_empresa().getId_empresa());
 		lista = em
 				.createQuery(
 						"from Funcionario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())

@@ -21,16 +21,20 @@
 <h:body>
 	<h:body>
 		<p:layout fullPage="true">
-			<p:layoutUnit position="north" resizable="true" style="width: 99%; height: 99%;">
+			<p:layoutUnit position="north" resizable="true"
+				style="width: 99%; height: 99%;">
 				<h:form name="formMenu">
 					<p:growl></p:growl>
 					<p:menubar>
 						<p:menuitem value="Home" icon="fa fa-home fa-lg"
 							url="/faces/Sistema/Home/Home.xhtml"></p:menuitem>
 						<p:menuitem value="Funcionario" icon="fa fa-male fa-lg"
-							url="/faces/Cadastros/Funcionario/FuncionarioList.xhtml" target="centro"></p:menuitem>
+							url="/faces/Cadastros/Funcionario/FuncionarioList.xhtml"
+							target="centro"></p:menuitem>
 						<p:menuitem value="Função" icon="fa fa-flag fa-lg"
 							url="/faces/Cadastros/Funcao/FuncaoList.xhtml" target="centro"></p:menuitem>
+						<p:menuitem value="EPI" icon="fa fa-flag fa-lg"
+							url="/faces/Cadastros/Epi/EpiList.xhtml" target="centro"></p:menuitem>
 						<p:menuitem value="Sair" action="#{loginControle.sair()}"
 							icon="fa fa-arrow-down fa-lg" />
 					</p:menubar>
