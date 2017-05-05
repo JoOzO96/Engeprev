@@ -15,13 +15,12 @@
 							title,
 							"toolbar=no, scrollbars=yes, resizable=yes, top=170, left=170, width=1300, height=800");
 		}
-		function testaValor(valor){
-			alert ("Teste");
-			if (valor == null){
-				popupwindow("https://consultaca.com/", "Consulta CA");
+		function testaValor(){
+			if (document.getElementById("formEditar:ca").value == ""){
+				popupwindow("https://consultaca.com/", "ConsultaCA");
 			}else{
-				popupwindow("https://consultaca.com/" + valor, "Consulta CA");
-			}
+				popupwindow("https://consultaca.com/" + document.getElementById("formEditar:ca").value, "ConsultaCA");
+			}                                                               
 		}
 	</script>
 </h:head>
@@ -41,7 +40,7 @@
 			<p:outputLabel value="Nome: *" for="nome" />
 			<p:inputText id="nome" size="50" value="#{epiCrud.objeto.nome}" />
 
-			<p:commandLink value="CA: *" for="ca" onclick="valor(#{epiCrud.objeto.ca})" />
+			<p:commandLink value="CA: *" for="ca" onclick="testaValor()" />
 			<p:inputText id="ca" size="50" value="#{epiCrud.objeto.ca}" />
 
 			<p:outputLabel value="Data de Validade: *" for="datavalidade" />
@@ -68,12 +67,6 @@
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
-	<p:dialog header="Consulta CA" widgetVar="dialogoCA" width="800"
-		height="600" resizable="false" modal="true">
 
-		<iframe src="../MateriaPrima/MateriaPrimaList.xhtml"
-			style="width: 100%; height: 100%;" frameborder="0"></iframe>
-
-	</p:dialog>
 </h:body>
 </html>
