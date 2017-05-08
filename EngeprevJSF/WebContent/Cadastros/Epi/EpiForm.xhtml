@@ -10,10 +10,11 @@
 	<script type="text/javascript">
 		function popupwindow(url, title) {
 			window
-					.open(
-							url,
-							title,
-							"toolbar=no, scrollbars=yes, resizable=yes, top=170, left=170, width=1300, height=800");
+			.open(
+					url,
+					title,
+					"toolbar=no, scrollbars=yes, resizable=yes, top=170, left=170, width=1300, height=800");
+			
 		}
 		function testaValor(){
 			if (document.getElementById("formEditar:ca").value == ""){
@@ -22,6 +23,7 @@
 				popupwindow("https://consultaca.com/" + document.getElementById("formEditar:ca").value, "ConsultaCA");
 			}                                                               
 		}
+	
 	</script>
 </h:head>
 <h:body>
@@ -61,7 +63,7 @@
 				<p:commandButton value="Gravar" action="#{epiCrud.gravar}"
 					ajax="false" icon="fa fa-check fa-lg"
 					style="width:88px;height:20px" />
-				<p:commandButton value="Cancelar" action="#{epiCrud.cancelar}"
+				<p:commandButton value="Cancelar" id="cancelar" action="#{epiCrud.cancelar}"
 					ajax="false" immediate="true" icon="fa fa-close fa-lg"
 					style="width:88px;height:20px" />
 			</f:facet>

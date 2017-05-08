@@ -7,14 +7,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.postgresql.util.PSQLException;
 
 import br.sistema.uteis.FabricaConexao;
 import engeprev.beans.Cidade;
+import engeprev.beans.EPI;
 import engeprev.beans.Funcionario;
+import engeprev.beans.FuncionarioEPI;
 import engeprev.beans.Usuario;
 
 @ManagedBean
@@ -51,6 +52,15 @@ public class FuncionarioCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<Cidade> results = em.createQuery(
 				"from Funcao where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+	
+	public List<EPI> completeEPI(String query) {
+		EntityManager em = FabricaConexao.getEntityManager();
+		List<EPI> results = em.createQuery(
+				"from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -153,5 +163,54 @@ public class FuncionarioCrud {
 	public void setObjeto(Funcionario objeto) {
 		this.objeto = objeto;
 	}
+	
+	
+	// --------------------------------------------------------
+		// Para os itens
+		// --------------------------------------------------------
+
+		private FuncionarioEPI funcionarioEpi; 
+
+		private Integer rowIndex = null; 
+
+		public void incluirFuncionarioEpi() {
+			rowIndex = null;
+			funcionarioEpi = new FuncionarioEPI();
+		}
+
+		public void alterarFuncionarioEpi(Integer rowIndex) {
+			this.rowIndex = rowIndex;
+			funcionarioEpi = objeto.getFuncionarioEPI().get(rowIndex); 
+
+		}
+
+		public void excluirEnderecoCliente(Integer rowIndex) {
+			objeto.getFuncionarioEPI().remove(rowIndex.intValue()); 
+		}
+
+		public void gravarFuncionarioEpi() {
+			if (this.rowIndex == null) {
+				funcionarioEpi.setFk_funcionario(objeto);
+				objeto.getFuncionarioEPI().add(funcionarioEpi);
+			} else {
+				objeto.getFuncionarioEPI().set(rowIndex, funcionarioEpi); 
+			}
+			rowIndex = null;
+			funcionarioEpi = null;
+		}
+
+		public void cancelarFuncionarioEpi() {
+			rowIndex = null;
+			funcionarioEpi = null;
+		}
+
+		public FuncionarioEPI getFuncionarioEpi() {
+			return funcionarioEpi;
+		}
+
+		public void setFuncionarioEpi(FuncionarioEPI funcionarioEpi) {
+			this.funcionarioEpi = funcionarioEpi;
+		}
+
 
 }

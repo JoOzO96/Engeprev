@@ -45,7 +45,7 @@ public class FiltroLogin implements Filter {
         HttpSession sessao = httpRequest.getSession(); 
         String contextPath = httpRequest.getContextPath(); 
          
-        LoginControle lc = (LoginControle) sessao.getAttribute("loginControle"); 
+      LoginControle lc = (LoginControle) sessao.getAttribute("loginControle"); 
         if ((lc == null) || (lc.getUsuarioLogado() == null)){ 
            System.out.println("Redirecionar para : " + contextPath +  
                                                      "/faces/Login/LoginForm.xhtml");    

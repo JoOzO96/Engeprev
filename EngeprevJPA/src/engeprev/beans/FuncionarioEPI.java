@@ -28,21 +28,12 @@ public class FuncionarioEPI implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "O funcionario deve ser inicializado!")
 	private Funcionario fk_funcionario;
-	@NotNull(message="A data de entrega deve ser informada")
-	private Date dataEntrega;
-	@NotNull(message="A data de vencimento deve ser informada")
-	private Date dataVencimento;
-	@NotNull(message="A quantidade deve ser informada")
-	@Min(message="A quantidade deve ser maio que 0", value=0)
-	private Float quantidade;
-	private Float quantidadeIdealAnual;
-	@ManyToOne
-	private Empresa id_empresa;
+	private Double quantidadeIdealAnual;
 	private static final long serialVersionUID = 1L;
 
 	public FuncionarioEPI() {
 		super();
-		dataEntrega = new Date();
+		quantidadeIdealAnual = 0D;
 	}
 
 	public Long getId_funcionarioepi() {
@@ -68,48 +59,11 @@ public class FuncionarioEPI implements Serializable {
 	public void setFk_funcionario(Funcionario fk_funcionario) {
 		this.fk_funcionario = fk_funcionario;
 	}
-
-	public Date getDataEntrega() {
-		return dataEntrega;
-	}
-
-	public void setDataEntrega(Date dataEntrega) {
-		this.dataEntrega = dataEntrega;
-	}
-
-	public Date getDataVencimento() {
-		return dataVencimento;
-	}
-
-	public void setDataVencimento(Date dataVencimento) {
-		this.dataVencimento = dataVencimento;
-	}
-
-	public Float getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Float quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public Float getQuantidadeIdealAnual() {
+	public Double getQuantidadeIdealAnual() {
 		return quantidadeIdealAnual;
 	}
 
-	public void setQuantidadeIdealAnual(Float quantidadeIdealAnual) {
+	public void setQuantidadeIdealAnual(Double quantidadeIdealAnual) {
 		this.quantidadeIdealAnual = quantidadeIdealAnual;
-	}
-
-	public Empresa getId_empresa() {
-		return id_empresa;
-	}
-
-	public void setId_empresa(Empresa id_empresa) {
-		this.id_empresa = id_empresa;
 	}
 }

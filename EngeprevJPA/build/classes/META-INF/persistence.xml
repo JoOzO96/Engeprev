@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="EngeprevJPA" transaction-type="RESOURCE_LOCAL">
+		<class>engeprev.beans.Funcionario</class>
+		<class>engeprev.beans.EPI</class>
+		<class>engeprev.beans.Funcao</class>
+		<class>engeprev.beans.FuncionarioEPI</class>
+		<class>engeprev.beans.Entrada</class>
+		<class>engeprev.beans.Fornecedor</class>
+		<class>engeprev.beans.EntradaItem</class>
+		<class>engeprev.beans.EntregaEpi</class>
+		<class>engeprev.beans.EntregaEpiItem</class>
+		<class>engeprev.beans.FuncionarioExame</class>
+		<class>engeprev.beans.FuncionarioAudiometria</class>
+		<class>engeprev.beans.Usuario</class>
+		<class>engeprev.beans.Empresa</class>
+		<class>engeprev.beans.Cidade</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/engeprev"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="masterkey"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

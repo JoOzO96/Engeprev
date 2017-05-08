@@ -24,24 +24,74 @@
 			<p:outputLabel value="Nome: *" for="nome" />
 			<p:inputText id="nome" size="50"
 				value="#{funcionarioCrud.objeto.nome}" />
-				
-			<p:outputLabel value="Função: *" for="funcao" />
+
+			<p:outputLabel value="Função: *" for="funcao"
+				onclick="PF('dialogoFun').show();" />
 			<p:autoComplete id="funcao" size="50" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome}" itemValue="#{obj}"
-				value="#{funcionarioCrud.objeto.funcao}"
-				converter="funcaoConverter" maxResults="5"
-				completeMethod="#{funcionarioCrud.completeFuncao}" />
+				value="#{funcionarioCrud.objeto.funcao}" converter="funcaoConverter"
+				maxResults="5" completeMethod="#{funcionarioCrud.completeFuncao}" />
 
 			<p:outputLabel value="Cidade: *" for="cidade" />
 			<p:autoComplete id="cidade" size="50" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome} - #{obj.estado}" itemValue="#{obj}"
 				value="#{funcionarioCrud.objeto.codcidade}"
-				converter="cidadeConverter" maxResults="5" onclick="#{funcionarioCrud.testaCidadeBranco()}"
+				converter="cidadeConverter" maxResults="5"
+				onclick="#{funcionarioCrud.testaCidadeBranco()}"
 				completeMethod="#{funcionarioCrud.completeCidade}" />
+				
+			<p:outputLabel value="" for="tabelaFuncionarioEpi" />
+			<p:dataTable id="tabelaFuncionarioEpi" rowIndexVar="rowIndex"
+				var="obj" value="#{funcionarioCrud.objeto.funcionarioEPI}"
+				emptyMessage="Nenhum resultado encontrado">
+				<f:facet name="header">
+					<div align="left"
+						style="position: relative; height: 10px; top: 5px; width: 95%;">
+						<p:outputLabel value="Listagem de EPI"></p:outputLabel>
+					</div>
+					<div align="right"
+						style="position: relative; height: 10px; top: -12px; width: 95%;">
+						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
+							actionListener="#{funcionarioCrud.incluirFuncionarioEpi}"
+							update=":formFuncionarioEpi" icon="fa fa-plus fa-lg"
+							style="width:88px;height:20px"
+							onclick="PF('dialogoFuncionarioEpi').show();" />
+					</div>
+				</f:facet>
 
+				<p:column headerText="EPI:">
+					<h:outputText value="#{obj.funcionarioEpi.nome}" />
+				</p:column>
 
+				<p:column headerText="CA:">
+					<h:outputText value="#{obj.CA}" />
+				</p:column>
+
+				<p:column headerText="Data Vencimento:">
+					<h:outputText value="#{obj.dataVencimento}" />
+				</p:column>
+
+				<p:column headerText="Alterar" width="90">
+					<p:commandButton
+						actionListener="#{clienteCrud.alterarFuncionarioEpi(rowIndex)}"
+						ajax="true" update=":formFuncionarioEpi" icon="fa fa-pencil fa-lg"
+						style="width:88px;height:20px"
+						onclick="PF('dialogoFuncionarioEpi').show();" />
+				</p:column>
+				<p:column headerText="Excluir" width="90">
+					<p:commandButton
+						actionListener="#{clienteCrud.excluirFuncionarioEpi(rowIndex)}"
+						icon="fa fa-close fa-lg" style="width:88px;height:20px"
+						ajax="true"
+						onclick="if (!confirm('Confirma a exclusão?')) return false">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+			
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{funcionarioCrud.gravar}"
 					ajax="false" icon="fa fa-check fa-lg"
@@ -51,13 +101,55 @@
 					icon="fa fa-close fa-lg" style="width:88px;height:20px" />
 			</f:facet>
 		</p:panelGrid>
+
+
+
+
 	</h:form>
 
-	
-	<p:dialog header="Cidades" widgetVar="dialogoCid" width="800"
+	<p:dialog header="Editar Funcionario EPI"
+		widgetVar="dialogoFuncionarioEpi" width="800" resizable="false"
+		modal="true">
+		<h:form id="formFuncionarioEpi">
+			<p:growl />
+			<h:panelGrid columns="2" style="margin-bottom:10px">
+
+				<p:commandLink value="EPI: *" onclick="PF('dialogoEPI').show();" />
+				<p:autoComplete id="epi" size="60" dropdown="true" multiple="false"
+					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
+					itemValue="#{obj}" value="#{funcionarioCrud.funcionarioEpi.fk_epi}"
+					converter="epiConverter" maxResults="5"
+					completeMethod="#{funcionarioCrud.completeEPI}" />
+
+				<p:outputLabel value="Quantidade Ideal: *" for="qtdIdeal" />
+				<p:inputText id="qtdIdeal" maxlength="255" size="60"
+					value="#{funcionarioCrud.funcionarioEpi.quantidadeIdealAnual}">
+				</p:inputText>
+			</h:panelGrid>
+
+
+			<p:commandButton
+				actionListener="#{funcionarioCrud.gravarFuncionarioEpi}"
+				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
+				style="width:88px;height:20px"
+				update=":formFuncionarioEpi :formEditar:tabelaFuncionarioEpi"
+				oncomplete="if (!args.validationFailed){ PF('dialogoFuncionarioEpi').hide();}"
+				ajax="true">
+			</p:commandButton>
+			<p:commandButton
+				actionListener="#{funcionarioCrud.cancelarFuncionarioEpi}"
+				icon="fa fa-close fa-lg" style="width:88px;height:20px"
+				value="Cancelar" update=":formEditar:tabelaFuncionarioEpi"
+				immediate="true" oncomplete="PF('dialogoFuncionarioEpi').hide();"
+				ajax="true" />
+
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="Função" widgetVar="dialogoFun" width="800"
 		height="600" resizable="false" modal="true">
 
-		<iframe src="../Cidade/CidadeList.xhtml"
+		<iframe src="../Funcao/FuncaoList.xhtml"
 			style="width: 100%; height: 100%;" frameborder="0"></iframe>
 
 	</p:dialog>
