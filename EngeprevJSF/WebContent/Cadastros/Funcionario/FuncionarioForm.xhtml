@@ -41,7 +41,7 @@
 				converter="cidadeConverter" maxResults="5"
 				onclick="#{funcionarioCrud.testaCidadeBranco()}"
 				completeMethod="#{funcionarioCrud.completeCidade}" />
-				
+
 			<p:outputLabel value="" for="tabelaFuncionarioEpi" />
 			<p:dataTable id="tabelaFuncionarioEpi" rowIndexVar="rowIndex"
 				var="obj" value="#{funcionarioCrud.objeto.funcionarioEPI}"
@@ -62,15 +62,23 @@
 				</f:facet>
 
 				<p:column headerText="EPI:">
-					<h:outputText value="#{obj.funcionarioEpi.nome}" />
+					<h:outputText value="#{obj.fk_epi.nome}" />
 				</p:column>
 
 				<p:column headerText="CA:">
-					<h:outputText value="#{obj.CA}" />
+					<h:outputText value="#{obj.fk_epi.ca}" />
 				</p:column>
 
 				<p:column headerText="Data Vencimento:">
-					<h:outputText value="#{obj.dataVencimento}" />
+					<h:outputText value="#{obj.fk_epi.datavalidade}">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Quantidade Ideal:">
+					<h:outputText value="#{obj.quantidadeIdealAnual}" >
+						<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Alterar" width="90">
@@ -90,8 +98,8 @@
 				</p:column>
 
 			</p:dataTable>
-			
-			
+
+
 			<f:facet name="footer">
 				<p:commandButton value="Gravar" action="#{funcionarioCrud.gravar}"
 					ajax="false" icon="fa fa-check fa-lg"

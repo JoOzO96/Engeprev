@@ -24,6 +24,9 @@ public class EntregaEpiItem implements Serializable {
 	@NotNull(message = "A data de entrega nao pode ser em nula")
 	@Temporal(TemporalType.DATE)
 	private Date dataentrega;
+	@ManyToOne(optional = false)
+	@NotNull(message = "O funcionario deve ser inicializado!")
+	private EntregaEpi id_entregaepi;
 	private static final long serialVersionUID = 1L;
 
 	public EntregaEpiItem() {
@@ -53,6 +56,14 @@ public class EntregaEpiItem implements Serializable {
 
 	public void setDataentrega(Date dataentrega) {
 		this.dataentrega = dataentrega;
+	}
+
+	public EntregaEpi getId_entregaepi() {
+		return id_entregaepi;
+	}
+
+	public void setId_entregaepi(EntregaEpi id_entregaepi) {
+		this.id_entregaepi = id_entregaepi;
 	}
 
 }
