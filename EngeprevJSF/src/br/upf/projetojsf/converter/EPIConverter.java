@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 
 import br.sistema.uteis.FabricaConexao;
 import engeprev.beans.EPI;
-import engeprev.beans.Funcao;
 
 
 @FacesConverter(value = "epiConverter")

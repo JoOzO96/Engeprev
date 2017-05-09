@@ -31,17 +31,22 @@ public class EntregaEpiCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		lista = em
 				.createQuery(
-						"from Funcionario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+						"from EntregaEpi where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
 				.getResultList();
 		em.close();
 	}
 
 	public List<Funcionario> completeFuncionario(String query) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
+		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<Funcionario> results = em.createQuery(
-				"from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				"from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + " and id_empresa_id_empresa = "+ usuario.getId_empresa().getId_empresa() +" order by nome")
 				.getResultList();
 		em.close();
+		System.out.println(results);
 		return results;
 	}
 

@@ -23,7 +23,7 @@ public class FuncionarioConverter implements Converter {
 				return ret;
 			} catch (NumberFormatException e) {
 				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Erro de Conversão da Funcao", "Funcao inválida."));
+						"Erro de Conversão da Funcionario", "Funcao inválida."));
 			}
 		} else
 			return null;
