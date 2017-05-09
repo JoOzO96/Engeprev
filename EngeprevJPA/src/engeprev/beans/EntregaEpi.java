@@ -40,7 +40,7 @@ public class EntregaEpi implements Serializable {
 	@ManyToOne
 	private Empresa id_empresa;
 	@Valid
-	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "fk_funcionario", fetch=FetchType.EAGER)
+	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "id_entregaepi", fetch=FetchType.EAGER)
 	private List<EntregaEpiItem> entregaEpiItem;
 	private static final long serialVersionUID = 1L;
 

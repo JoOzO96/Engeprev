@@ -9,10 +9,10 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
 import br.sistema.uteis.FabricaConexao;
-import engeprev.beans.Cidade;
 import engeprev.beans.EPI;
 import engeprev.beans.EntregaEpi;
 import engeprev.beans.EntregaEpiItem;
+import engeprev.beans.Funcionario;
 import engeprev.beans.Usuario;
 
 @ManagedBean
@@ -36,19 +36,10 @@ public class EntregaEpiCrud {
 		em.close();
 	}
 
-	public List<Cidade> completeCidade(String query) {
+	public List<Funcionario> completeFuncionario(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<Cidade> results = em.createQuery(
-				"from Cidade where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
-				.getResultList();
-		em.close();
-		return results;
-	}
-
-	public List<Cidade> completeFuncao(String query) {
-		EntityManager em = FabricaConexao.getEntityManager();
-		List<Cidade> results = em.createQuery(
-				"from Funcao where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+		List<Funcionario> results = em.createQuery(
+				"from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -70,7 +61,7 @@ public class EntregaEpiCrud {
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
-		return "FuncionarioForm?faces-redirect=true";
+		return "EntregaEpiForm?faces-redirect=true";
 	}
 
 	public String gravar() {
@@ -80,7 +71,7 @@ public class EntregaEpiCrud {
 		em.merge(objeto);
 		em.getTransaction().commit();
 		em.close();
-		return "FuncionarioList?faces-redirect=true";
+		return "EntregaEpiList?faces-redirect=true";
 	}
 
 	public void testaCidadeBranco() {
@@ -88,14 +79,14 @@ public class EntregaEpiCrud {
 	}
 
 	public String cancelar() {
-		return "FuncionarioList";
+		return "EntregaEpiList";
 	}
 
 	public String alterar(Long id) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		objeto = em.find(EntregaEpi.class, id);
 		em.close();
-		return "FuncionarioForm?faces-redirect=true";
+		return "EntregaEpiForm?faces-redirect=true";
 	}
 
 	public String excluir(Long id) {
@@ -106,7 +97,7 @@ public class EntregaEpiCrud {
 		em.remove(objeto);
 		em.getTransaction().commit();
 		em.close();
-		return "FuncionarioList?faces-redirect=true";
+		return "EntregaEpiList?faces-redirect=true";
 
 	}
 
