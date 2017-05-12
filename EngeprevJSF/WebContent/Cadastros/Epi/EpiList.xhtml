@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Lista de EPI</title>
-	
+
 </h:head>
 <h:body onload="#{epiCrud.inicializarLista()}">
 	<h:form id="formLista">
@@ -35,17 +35,17 @@
 				</div>
 			</f:facet>
 			<p:column headerText="Código" sortBy="#{epi.id_epi}"
-				filterBy="#{epi.id_epi}" filterMatchMode="exact">
+				filterBy="#{epi.id_epi}" filterMatchMode="exact" style="width:10%;text-align:center">
 				<h:outputText value="#{epi.id_epi}" />
 			</p:column>
 
 			<p:column headerText="Nome: *" sortBy="#{epi.nome}"
-				filterBy="#{epi.nome}" filterMatchMode="contains">
+				filterBy="#{epi.nome}" filterMatchMode="contains" style="text-align:center">
 				<h:outputText value="#{epi.nome}" />
 			</p:column>
 
-			<p:column headerText="CA: *" sortBy="#{epi.ca}"
-				filterBy="#{epi.ca}" filterMatchMode="contains">
+			<p:column headerText="CA: *" sortBy="#{epi.ca}" filterBy="#{epi.ca}"
+				filterMatchMode="contains" style="width:10%;text-align:center">
 				<h:outputText value="#{epi.ca}" />
 			</p:column>
 

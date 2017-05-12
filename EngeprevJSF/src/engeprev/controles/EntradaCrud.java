@@ -11,14 +11,13 @@ import javax.servlet.http.HttpSession;
 import br.sistema.uteis.FabricaConexao;
 import engeprev.beans.EPI;
 import engeprev.beans.Entrada;
-import engeprev.beans.Entrada;
 import engeprev.beans.EntradaItem;
-import engeprev.beans.Funcionario;
+import engeprev.beans.Fornecedor;
 import engeprev.beans.Usuario;
 
 @ManagedBean
 @SessionScoped
-public class EntradaEpiCrud {
+public class EntradaCrud {
 
 	private List<Entrada> lista;
 	private Entrada objeto;
@@ -44,7 +43,21 @@ public class EntradaEpiCrud {
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<EPI> results = em
 				.createQuery("from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
-						+ "where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + "order by nome")
+						+ "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + " order by nome")
+				.getResultList();
+		em.close();
+		return results;
+	}
+	
+	public List<Fornecedor> completeFornecedor(String query) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
+		usuario = loginControle.getUsuarioLogado();
+		EntityManager em = FabricaConexao.getEntityManager();
+		List<Fornecedor> results = em
+				.createQuery("from Fornecedor where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+						+ "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + " order by nome")
 				.getResultList();
 		em.close();
 		return results;
@@ -96,7 +109,7 @@ public class EntradaEpiCrud {
 
 	}
 
-	public EntradaEpiCrud() {
+	public EntradaCrud() {
 		super();
 	}
 
@@ -131,20 +144,20 @@ public class EntradaEpiCrud {
 
 	public void alterarEntradaItem(Integer rowIndex) {
 		this.rowIndex = rowIndex;
-		entradaItem = objeto.getItensEntrada().get(rowIndex);
+		entradaItem = objeto.getEntradaItem().get(rowIndex);
 
 	}
 
 	public void excluirEntradaItem(Integer rowIndex) {
-		objeto.getItensEntrada().remove(rowIndex.intValue());
+		objeto.getEntradaItem().remove(rowIndex.intValue());
 	}
 
 	public void gravarEntradaItem() {
 		if (this.rowIndex == null) {
 			entradaItem.setId_entrada(objeto);
-			objeto.getItensEntrada().add(entradaItem);
+			objeto.getEntradaItem().add(entradaItem);
 		} else {
-			objeto.getItensEntrada().set(rowIndex, entradaItem);
+			objeto.getEntradaItem().set(rowIndex, entradaItem);
 		}
 		rowIndex = null;
 		entradaItem = null;

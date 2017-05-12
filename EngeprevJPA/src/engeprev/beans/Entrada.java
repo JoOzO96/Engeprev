@@ -46,7 +46,7 @@ public class Entrada implements Serializable {
 	@Size(min = 1, message = "A entrada deve conter pelo menos 1 item")
 	@Valid
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "id_entrada")
-	private List<EntradaItem> itensEntrada;
+	private List<EntradaItem> entradaItem;
 	@ManyToOne
 	private Empresa id_empresa;
 	private static final long serialVersionUID = 1L;
@@ -54,7 +54,7 @@ public class Entrada implements Serializable {
 	public Entrada() {
 		super();
 		data = new Date();
-		itensEntrada = new ArrayList<>();
+		entradaItem = new ArrayList<>();
 	}   
 	public Long getId_entrada() {
 		return this.id_entrada;
@@ -83,11 +83,11 @@ public class Entrada implements Serializable {
 	public void setNumeronota(Long numeronota) {
 		this.numeronota = numeronota;
 	}
-	public List<EntradaItem> getItensEntrada() {
-		return itensEntrada;
+	public List<EntradaItem> getEntradaItem() {
+		return entradaItem;
 	}
-	public void setItensEntrada(List<EntradaItem> itensEntrada) {
-		this.itensEntrada = itensEntrada;
+	public void setEntradaItem(List<EntradaItem> entradaItem) {
+		this.entradaItem = entradaItem;
 	}
 	public Empresa getId_empresa() {
 		return id_empresa;

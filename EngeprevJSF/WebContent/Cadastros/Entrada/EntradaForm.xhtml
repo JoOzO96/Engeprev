@@ -11,47 +11,48 @@
 <h:body style="width: 100%; height: 100%;">
 	<h:form id="formEditar">
 		<p:growl></p:growl>
-		<p:focus for="funcionario" />
+		<p:focus for="numeronota" />
 		<p:panelGrid columns="2" style="width: 99%; height: 99%;">
 			<f:facet name="header">
-				<p:outputLabel value="Edição de Entregas de EPI" />
+				<p:outputLabel value="Edição de Entrada de EPI" />
 			</f:facet>
 
 			<p:outputLabel value="Código:" for="id" />
 			<p:inputText id="id" disabled="true" size="5"
-				value="#{entregaEpiCrud.objeto.id_entregaepi}" />
+				value="#{entradaCrud.objeto.id_entrada}" />
 
+			<p:outputLabel value="Número: *" for="numeronota" />
+			<p:inputText id="numeronota" size="50" value="#{entradaCrud.objeto.numeronota}" />
 
-			<p:outputLabel value="Funcionario: *" for="funcionario"
-				onclick="PF('dialogoFun').show();" />
-			<p:autoComplete id="funcionario" size="50" dropdown="true"
+			<p:outputLabel value="Fornecedor: *" for="fornecedor"
+				onclick="PF('dialogoFor').show();" />
+			<p:autoComplete id="fornecedor" size="50" dropdown="true"
 				multiple="false" forceSelection="true" var="obj"
 				itemLabel="#{obj.nome}" itemValue="#{obj}"
-				value="#{entregaEpiCrud.objeto.id_funcionario}"
-				converter="funcionarioConverter" maxResults="5"
-				completeMethod="#{entregaEpiCrud.completeFuncionario}" />
+				value="#{entradaCrud.objeto.id_fornecedor}"
+				converter="fornecedorConverter" maxResults="5"
+				completeMethod="#{entradaCrud.completeFornecedor}" />
 
-			<p:outputLabel value="Data de Entrega: *" for="dataentrega" />
-			<p:calendar id="dataentrega" size="50"
-				value="#{entregaEpiCrud.objeto.dataentrega}" pattern="dd/MM/yyyy"
-				mask="true"></p:calendar>
+			<p:outputLabel value="Data: *" for="data" />
+			<p:calendar id="data" size="50" value="#{entradaCrud.objeto.data}"
+				pattern="dd/MM/yyyy" mask="true"></p:calendar>
 
-			<p:outputLabel value="" for="tabelaEntregaEpiItem" />
-			<p:dataTable id="tabelaEntregaEpiItem" rowIndexVar="rowIndex"
-				var="obj" value="#{entregaEpiCrud.objeto.entregaEpiItem}"
+			<p:outputLabel value="" for="tabelaEntradaItem" />
+			<p:dataTable id="tabelaEntradaItem" rowIndexVar="rowIndex" var="obj"
+				value="#{entradaCrud.objeto.entradaItem}"
 				emptyMessage="Nenhum resultado encontrado">
 				<f:facet name="header">
 					<div align="left"
 						style="position: relative; height: 10px; top: 5px; width: 95%;">
-						<p:outputLabel value="Listagem de EPI"></p:outputLabel>
+						<p:outputLabel value="Listagem de Entrada de EPI"></p:outputLabel>
 					</div>
 					<div align="right"
 						style="position: relative; height: 10px; top: -12px; width: 95%;">
 						<p:commandButton id="botaoIncluir" value="Incluir" ajax="true"
-							actionListener="#{entregaEpiCrud.incluirEntregaEpiItem}"
-							update=":formEntregaEpiItem" icon="fa fa-plus fa-lg"
+							actionListener="#{entradaCrud.incluirEntradaItem}"
+							update=":formEntradaItem" icon="fa fa-plus fa-lg"
 							style="width:88px;height:20px"
-							onclick="PF('dialogoEntregaEpiItem').show();" />
+							onclick="PF('dialogoEntradaItem').show();" />
 					</div>
 				</f:facet>
 
@@ -78,14 +79,14 @@
 
 				<p:column headerText="Alterar" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.alterarEntregaEpiItem(rowIndex)}"
-						ajax="true" update=":formEntregaEpiItem" icon="fa fa-pencil fa-lg"
+						actionListener="#{clienteCrud.alterarEntradaItem(rowIndex)}"
+						ajax="true" update=":formEntradaItem" icon="fa fa-pencil fa-lg"
 						style="width:88px;height:20px"
-						onclick="PF('dialogoEntregaEpiItem').show();" />
+						onclick="PF('dialogoEntradaItem').show();" />
 				</p:column>
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.excluirEntregaEpiItem(rowIndex)}"
+						actionListener="#{clienteCrud.excluirEntradaItem(rowIndex)}"
 						icon="fa fa-close fa-lg" style="width:88px;height:20px"
 						ajax="true"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
@@ -96,12 +97,12 @@
 
 
 			<f:facet name="footer">
-				<p:commandButton value="Gravar" action="#{entregaEpiCrud.gravar}"
+				<p:commandButton value="Gravar" action="#{entradaCrud.gravar}"
 					ajax="false" icon="fa fa-check fa-lg"
 					style="width:88px;height:20px" />
-				<p:commandButton value="Cancelar"
-					action="#{entregaEpiCrud.cancelar}" ajax="false" immediate="true"
-					icon="fa fa-close fa-lg" style="width:88px;height:20px" />
+				<p:commandButton value="Cancelar" action="#{entradaCrud.cancelar}"
+					ajax="false" immediate="true" icon="fa fa-close fa-lg"
+					style="width:88px;height:20px" />
 			</f:facet>
 		</p:panelGrid>
 
@@ -110,40 +111,37 @@
 
 	</h:form>
 
-	<p:dialog header="Editar Entrega de EPI"
-		widgetVar="dialogoEntregaEpiItem" width="800" resizable="false"
-		modal="true">
-		<h:form id="formEntregaEpiItem">
+	<p:dialog header="Editar entrada de EPI" widgetVar="dialogoEntradaItem"
+		width="800" resizable="false" modal="true">
+		<h:form id="formEntradaItem">
 			<p:growl />
 			<h:panelGrid columns="2" style="margin-bottom:10px">
 
 				<p:commandLink value="EPI: *" onclick="PF('dialogoEPI').show();" />
 				<p:autoComplete id="epi" size="60" dropdown="true" multiple="false"
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
-					itemValue="#{obj}" value="#{entregaEpiCrud.entregaEpiItem.id_epi}"
+					itemValue="#{obj}" value="#{entradaCrud.entradaItem.id_epi}"
 					converter="epiConverter" maxResults="5"
 					completeMethod="#{funcionarioCrud.completeEPI}" />
 
 				<p:outputLabel value="Quantidade: *" for="qtdIdeal" />
 				<p:inputText id="qtdIdeal" maxlength="255" size="60"
-					value="#{entregaEpiCrud.entregaEpiItem.quantidade}">
+					value="#{entradaCrud.entradaItem.quantidade}">
 				</p:inputText>
 			</h:panelGrid>
 
 
-			<p:commandButton
-				actionListener="#{entregaEpiCrud.gravarEntregaEpiItem}"
+			<p:commandButton actionListener="#{entradaCrud.gravarEntradaItem}"
 				validateClient="true" value="Gravar" icon="fa fa-check fa-lg"
 				style="width:88px;height:20px"
-				update=":formEntregaEpiItem :formEditar:tabelaEntregaEpiItem"
-				oncomplete="if (!args.validationFailed){ PF('dialogoEntregaEpiItem').hide();}"
+				update=":formEntradaItem :formEditar:tabelaEntradaItem"
+				oncomplete="if (!args.validationFailed){ PF('dialogoEntradaItem').hide();}"
 				ajax="true">
 			</p:commandButton>
-			<p:commandButton
-				actionListener="#{entregaEpiCrud.cancelarEntregaEpiItem}"
+			<p:commandButton actionListener="#{entradaCrud.cancelarEntradaItem}"
 				icon="fa fa-close fa-lg" style="width:88px;height:20px"
-				value="Cancelar" update=":formEditar:tabelaEntregaEpiItem"
-				immediate="true" oncomplete="PF('dialogoEntregaEpiItem').hide();"
+				value="Cancelar" update=":formEditar:tabelaEntradaItem"
+				immediate="true" oncomplete="PF('dialogoEntradaItem').hide();"
 				ajax="true" />
 
 		</h:form>
