@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,6 +28,8 @@ public class EntregaEpiItem implements Serializable {
 	@ManyToOne(optional = false)
 	@NotNull(message = "O funcionario deve ser inicializado!")
 	private EntregaEpi id_entregaepi;
+	@Min(message="A quandidade deve ser maior que {min}", value=0)
+	private Double quantidade;
 	private static final long serialVersionUID = 1L;
 
 	public EntregaEpiItem() {
@@ -64,6 +67,13 @@ public class EntregaEpiItem implements Serializable {
 
 	public void setId_entregaepi(EntregaEpi id_entregaepi) {
 		this.id_entregaepi = id_entregaepi;
+	}
+	public Double getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }
