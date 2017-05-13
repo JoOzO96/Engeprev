@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Entity implementation class for Entity: Fornecedor
  *
@@ -23,10 +26,13 @@ public class Fornecedor implements Serializable {
 	@SequenceGenerator(name = "seq_fornecedor", sequenceName = "seq_fornecedor", allocationSize = 1, initialValue = 1)
 	private Long id_fornecedor;
 	@NotNull(message="O nome do fornecedor deve ser informado")
+	@NotEmpty(message="O nome do fornecedor deve ser informado")
 	private String nome;
 	@NotNull(message="O CNPJ do fornecedor deve ser informado")
+	@NotEmpty(message="O CNPJ do fornecedor deve ser informado")
 	private String cnpj;
 	private String razaosocial;
+	@Email(message="O email deve ser valido.")
 	private String email;
 	@ManyToOne
 	private Cidade codcidade;

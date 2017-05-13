@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -34,6 +35,7 @@ public class Funcionario implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String nome;
 	@ManyToOne(optional=false)
+	@NotNull(message="A função nao pode ser nula.")
 	private Funcao funcao;
 	@Valid
 	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "fk_funcionario", fetch=FetchType.EAGER)
