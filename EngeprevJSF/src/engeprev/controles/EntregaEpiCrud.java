@@ -53,8 +53,8 @@ public class EntregaEpiCrud {
 	public List<EPI> completeEPI(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
 		List<EPI> results = em
-				.createQuery(
-						"from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nome")
+				.createNativeQuery(
+						"SELECT e.*FROM EPI e INNER JOIN FUNCIONARIOEPI fe ON e.id_epi = fe.fk_epi_id_epi where fe.fk_funcionario_id_funcionario = " + objeto.getId_funcionario().getId_funcionario()  +" and upper(e.nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by e.nome",EPI.class)
 				.getResultList();
 		em.close();
 		return results;

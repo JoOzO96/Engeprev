@@ -20,6 +20,7 @@ public class EntregaEpiItem implements Serializable {
 	@GeneratedValue(generator = "seq_entregaitem")
 	@SequenceGenerator(name = "seq_entregaitem", sequenceName = "seq_entregaitem", allocationSize = 1, initialValue = 1)
 	private Long id_entregaepiitem;
+	@ManyToOne
 	@NotNull(message = "O EPI deve ser informado")
 	private EPI id_epi;
 	@NotNull(message = "A data de entrega nao pode ser em nula")

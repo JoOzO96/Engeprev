@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -45,7 +46,7 @@ public class Entrada implements Serializable {
 	@NotNull(message = "As entradas de  produtos devem ser inicializados!")
 	@Size(min = 1, message = "A entrada deve conter pelo menos 1 item")
 	@Valid
-	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "id_entrada")
+	@OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "id_entrada", fetch = FetchType.EAGER)
 	private List<EntradaItem> entradaItem;
 	@ManyToOne
 	private Empresa id_empresa;

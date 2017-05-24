@@ -79,16 +79,16 @@
 
 				<p:column headerText="Alterar" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.alterarEntradaItem(rowIndex)}"
+						actionListener="#{entradaCrud.alterarEntradaItem(rowIndex)}"
 						ajax="true" update=":formEntradaItem" icon="fa fa-pencil fa-lg"
 						style="width:88px;height:20px"
 						onclick="PF('dialogoEntradaItem').show();" />
 				</p:column>
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.excluirEntradaItem(rowIndex)}"
+						actionListener="#{entradaCrud.excluirEntradaItem(rowIndex)}"
 						icon="fa fa-close fa-lg" style="width:88px;height:20px"
-						ajax="true"
+						ajax="true" update=":formEntradaItem"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
 					</p:commandButton>
 				</p:column>

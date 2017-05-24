@@ -33,7 +33,7 @@
 					</p:commandButton>
 				</div>
 			</f:facet>
-			<p:column headerText="Código" sortBy="#{ent.id_entregaEpi}"
+			<p:column headerText="Código" sortBy="#{ent.id_entregaepi}"
 				filterBy="#{ent.id_entregaEpi}" filterMatchMode="exact">
 				<h:outputText value="#{ent.id_entregaepi}" />
 			</p:column>
@@ -53,13 +53,13 @@
 
 			<p:column headerText="Alterar" width="90">
 				<p:commandButton
-					action="#{entregaEpiCrud.alterar(ent.id_entregaEpi)}"
+					action="#{entregaEpiCrud.alterar(ent.id_entregaepi)}"
 					icon="fa fa-pencil fa-lg" style="width:88px;height:20px"
 					ajax="false" />
 			</p:column>
 			<p:column headerText="Excluir" width="90">
 				<p:commandButton
-					action="#{entregaEpiCrud.excluir(ent.id_entregaEpi)}" ajax="true"
+					action="#{entregaEpiCrud.excluir(ent.id_entregaepi)}" ajax="true"
 					icon="fa fa-close fa-lg" style="width:88px;height:20px"
 					onclick="if (!confirm('Confirma a exclusão?')) return false" />
 			</p:column>

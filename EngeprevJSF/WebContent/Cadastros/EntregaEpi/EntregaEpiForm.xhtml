@@ -78,14 +78,14 @@
 
 				<p:column headerText="Alterar" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.alterarEntregaEpiItem(rowIndex)}"
+						actionListener="#{entregaEpiCrud.alterarEntregaEpiItem(rowIndex)}"
 						ajax="true" update=":formEntregaEpiItem" icon="fa fa-pencil fa-lg"
 						style="width:88px;height:20px"
 						onclick="PF('dialogoEntregaEpiItem').show();" />
 				</p:column>
 				<p:column headerText="Excluir" width="90">
 					<p:commandButton
-						actionListener="#{clienteCrud.excluirEntregaEpiItem(rowIndex)}"
+						actionListener="#{entregaEpiCrud.excluirEntregaEpiItem(rowIndex)}"
 						icon="fa fa-close fa-lg" style="width:88px;height:20px"
 						ajax="true"
 						onclick="if (!confirm('Confirma a exclusão?')) return false">
@@ -122,7 +122,7 @@
 					forceSelection="true" var="obj" itemLabel="#{obj.nome}"
 					itemValue="#{obj}" value="#{entregaEpiCrud.entregaEpiItem.id_epi}"
 					converter="epiConverter" maxResults="5"
-					completeMethod="#{funcionarioCrud.completeEPI}" />
+					completeMethod="#{entregaEpiCrud.completeEPI}" />
 
 				<p:outputLabel value="Quantidade: *" for="qtdIdeal" />
 				<p:inputText id="qtdIdeal" maxlength="255" size="60"

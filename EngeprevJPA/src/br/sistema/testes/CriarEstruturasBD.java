@@ -5600,15 +5600,7 @@ public class CriarEstruturasBD {
 		em.createNativeQuery("INSERT INTO CIDADE (codcidade,codnacional,estado,nome)VALUES(5563,'3557154','SP','ZACARIAS')").executeUpdate();
 		em.createNativeQuery("INSERT INTO CIDADE (codcidade,codnacional,estado,nome)VALUES(5564,'2114007','MA','ZÉ DOCA')").executeUpdate();
 		em.createNativeQuery("INSERT INTO CIDADE (codcidade,codnacional,estado,nome)VALUES(5565,'4219853','SC','ZORTÉA')").executeUpdate();
-//		em.createNativeQuery("INSERT INTO cliente (codcliente, cpf, datacadastro, nome, rg) VALUES (1, '000.000.002-72', NULL, 'DIVERSOS', '')").executeUpdate();
-//		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (1, true, 'Aberto', false);").executeUpdate();
-//		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (2, true, 'Em Preparo', false);").executeUpdate();
-//		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (3, false, 'Aguardando Entrega', false);").executeUpdate();
-//		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (4, false, 'Entregue', true);").executeUpdate();		
-//		em.createNativeQuery("INSERT INTO situacao (codsituacao, cozinha, descricao, finaliza) VALUES (5, false, 'Finalizado', true);").executeUpdate();
-//		em.createNativeQuery("INSERT INTO usuario (codusuario, grauacesso, senha, usuario) VALUES (1, 5, 'admin', 'admin');").executeUpdate();
-//		em.createNativeQuery("INSERT INTO emitente (codemitente, bairro, complemento, nome, numero, rua, telefone, cidade_codcidade) VALUES (1, 'Bairro Padrao', NULL, 'Empresa Padrao', '1', 'Rua Padrao', '5496178803', 1);").executeUpdate();
-//		
+	
 		em.getTransaction().commit();
 		em.close();
 	}
@@ -5618,30 +5610,20 @@ public class CriarEstruturasBD {
 		em.getTransaction().begin();
 		BigInteger result = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('cidadeid', 5566, true)").getSingleResult();
 		BigInteger result1 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_empresa', 2, true)").getSingleResult();
-//		BigInteger result2 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_situacao', 5, true)").getSingleResult();
 		BigInteger result3 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_usuario', 2, true)").getSingleResult();
-//		BigInteger result4 = (BigInteger) em.createNativeQuery("SELECT pg_catalog.setval('seq_emitente', 2, true)").getSingleResult();
 		em.getTransaction().commit();
 		em.close();
 	}
-//	
-//	@Test
-//	public void Teste05(){
-//		EntityManager em = FabricaConexao.getEntityManager();
-//		em.getTransaction().begin();
-//		em.createNativeQuery("CREATE OR REPLACE FUNCTION entradaitem_estoque() returns trigger as $$	declare		v_quantidade_antiga 	FLOAT;		v_valorultimacompra	FLOAT;		v_valorcustomedio		FLOAT;		v_quantidadecomprada	FLOAT;	begin		if (TG_OP = 'INSERT') then		v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = new.materiaprima_codMateriaPrima);		v_quantidade_antiga = v_quantidade_antiga + new.quantidade;		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = new.materiaprima_codMateriaPrima;		v_valorultimacompra = (SELECT valorultimacompra FROM materiaprima where codMateriaPrima = new.materiaprima_codMateriaPrima);		if (v_valorultimacompra < new.custounitario) then			update materiaprima set valorultimacompra = new.custounitario where codMateriaPrima = new.materiaprima_codMateriaPrima;		end if;		v_valorcustomedio = (SELECT avg(custounitario) FROM entradaitem where materiaprima_codMateriaPrima = new.materiaprima_codMateriaPrima);		update materiaprima set valorcustomedio = v_valorcustomedio where codMateriaPrima = new.materiaprima_codMateriaPrima;										 				return new;		ELSIF (TG_OP = 'UPDATE') then		v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = old.materiaprima_codMateriaPrima);		v_quantidade_antiga = v_quantidade_antiga - old.quantidade;		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = old.materiaprima_codMateriaPrima;				v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = new.materiaprima_codMateriaPrima);		v_quantidade_antiga = v_quantidade_antiga + new.quantidade;		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = new.materiaprima_codMateriaPrima;		update materiaprima set valorultimacompra = new.custounitario where codMateriaPrima = new.materiaprima_codMateriaPrima;				v_valorcustomedio = (SELECT avg(custounitario) FROM entradaitem where materiaprima_codMateriaPrima = new.materiaprima_codMateriaPrima);		update materiaprima set valorcustomedio = v_valorcustomedio where codMateriaPrima = new.materiaprima_codMateriaPrima;							return new;				ELSIF (TG_OP = 'DELETE') then		v_quantidade_antiga = (SELECT quantidade FROM materiaprima where codMateriaPrima = old.materiaprima_codMateriaPrima);									v_quantidade_antiga = v_quantidade_antiga - old.quantidade;		update materiaprima set quantidade = v_quantidade_antiga where codMateriaPrima = old.materiaprima_codMateriaPrima;		update materiaprima set valorultimacompra = old.custounitario where codMateriaPrima = old.materiaprima_codMateriaPrima;		v_valorcustomedio = (SELECT avg(custounitario) FROM entradaitem where materiaprima_codMateriaPrima = old.materiaprima_codMateriaPrima);		update materiaprima set valorcustomedio = v_valorcustomedio where codMateriaPrima = old.materiaprima_codMateriaPrima;					return old;		END IF;	end;$$ LANGUAGE plpgsql;CREATE TRIGGER entradaitem_estoque after INSERT OR UPDATE OR DELETE ON entradaitem FOR EACH ROW EXECUTE PROCEDURE entradaitem_estoque()").executeUpdate();
-//		em.getTransaction().commit();
-//		em.close();
-//	}
-//	
-//	@Test
-//	public void Teste06(){
-//		EntityManager em = FabricaConexao.getEntityManager();
-//		em.getTransaction().begin();
-//		em.createNativeQuery("CREATE OR REPLACE FUNCTION pedidoitem_estoque() returns trigger as $$	declare   		v_quantidadeatual FLOAT;		r  materiaprima%rowtype;     		pedprod pedidoproduto%rowtype;     		numprodutos FLOAT;     		v_quantidadecomposicao FLOAT;  	begin    		if (new.finalizado = true and new.baixa = false) then    					for r in (Select mp.codmateriaprima     			from pedidoproduto pp      			inner join produtocomposicao pc on pc.produto_codproduto = new.produto_codproduto     			inner join materiaprima mp on pc.materiaprima_codmateriaprima = mp.codmateriaprima			where pp.codpedidoproduto = new.codpedidoproduto     			order by mp.codmateriaprima)     				loop      					v_quantidadeatual = (SELECT quantidade from materiaprima where codmateriaprima = r.codmateriaprima);					v_quantidadecomposicao = (SELECT p.quantidade from produtocomposicao p       					where p.materiaprima_codmateriaprima = r.codmateriaprima);      					v_quantidadeatual = v_quantidadeatual - v_quantidadecomposicao;      					update materiaprima set quantidade = v_quantidadeatual where codmateriaprima = r.codmateriaprima;				end loop;			if (SELECT listaCozinha FROM PRODUTO inner join pedidoproduto on produto.codproduto = new.produto_codproduto where pedidoproduto.codpedidoproduto = new.codpedidoproduto) then      				if(new.finalizado = true) then       					numprodutos = (SELECT count(codpedidoproduto) from pedidoproduto inner join produto on produto.codproduto = new.produto_codproduto where pedido_codpedido = new.pedido_codpedido and itementregue = false and produto.listacozinha = true);					if (numprodutos > 1) then          						UPDATE pedido set situacao_codsituacao = 2 where codpedido = new.pedido_codpedido;					else          						UPDATE pedido set situacao_codsituacao = 3 where codpedido = new.pedido_codpedido;					end if;      				end if;         				if (SELECT count(codpedidoproduto) from pedidoproduto where finalizado = true and pedido_codpedido = new.pedido_codpedido) = (SELECT count(codpedidoproduto) from pedidoproduto where pedido_codpedido = new.pedido_codpedido) then					UPDATE pedido set situacao_codsituacao = 3 where codpedido = new.pedido_codpedido;				end if;      			end if; 			UPDATE pedidoproduto set baixa = true where codpedidoproduto = new.codpedidoproduto;		end if ;					return new; end;$$ LANGUAGE plpgsql; CREATE TRIGGER pedidoitem_estoque after UPDATE ON pedidoproduto FOR EACH ROW EXECUTE PROCEDURE pedidoitem_estoque();").executeUpdate();
-//		em.getTransaction().commit();
-//		em.close();
-//	}
+
+	@Test
+	public void Teste06(){
+		EntityManager em = FabricaConexao.getEntityManager();
+		em.getTransaction().begin();
+		em.createNativeQuery("CREATE OR REPLACE FUNCTION entradaitem_estoque() returns trigger as $$ declare 	v_quantidade_antiga 	FLOAT;			v_valorultimacompra	FLOAT;		v_quantidadecomprada	FLOAT;	begin			if (TG_OP = 'INSERT') then				v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga + new.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;				v_valorultimacompra = (SELECT valor_un  FROM epi where id_epi = new.id_epi_id_epi);				if (v_valorultimacompra < new.valor_un) then						update epi set valor_un = new.valor_un where id_epi = new.id_epi_id_epi;				end if;		return new;			ELSIF (TG_OP = 'UPDATE') then				v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = old.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga - old.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;						v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga + new.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;				update epi set valor_un = new.valor_un where id_epi = new.id_epi_id_epi;										return new;					ELSIF (TG_OP = 'DELETE') then				v_quantidade_antiga = (SELECT quantidade FROM  epi where id_epi = old.id_epi_id_epi);											v_quantidade_antiga = v_quantidade_antiga - old.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;				update epi set valor_un = old.valor_un where id_epi = old.id_epi_id_epi;								return old;			END IF;	end;$$ LANGUAGE plpgsql;CREATE TRIGGER entradaitem_estoque after INSERT OR UPDATE OR DELETE ON entradaitem FOR EACH ROW EXECUTE PROCEDURE entradaitem_estoque();").executeUpdate();
+		em.createNativeQuery("CREATE OR REPLACE FUNCTION entregaepiitem_estoque() returns trigger as $$ declare	v_quantidade_antiga 	FLOAT;			v_valorultimacompra	FLOAT;		v_quantidadecomprada	FLOAT;	begin			if (TG_OP = 'INSERT') then				v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga - new.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;				return new;			ELSIF (TG_OP = 'UPDATE') then				v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = old.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga + old.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;						v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);				v_quantidade_antiga = v_quantidade_antiga - new.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;				return new;					ELSIF (TG_OP = 'DELETE') then				v_quantidade_antiga = (SELECT quantidade FROM  epi where id_epi = old.id_epi_id_epi);											v_quantidade_antiga = v_quantidade_antiga + old.quantidade;				update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;				return old;			END IF;	end;$$ LANGUAGE plpgsql;CREATE TRIGGER entregaepiitem_estoque after INSERT OR UPDATE OR DELETE ON entregaepiitem FOR EACH ROW EXECUTE PROCEDURE entregaepiitem_estoque();").executeUpdate();
+		em.getTransaction().commit();
+		em.close();
+	}
 	
 //	@Test
 //	public void Teste07(){
@@ -5654,7 +5636,7 @@ public class CriarEstruturasBD {
 	
 	
 	@Test
-	public void TesteCriarUsuario(){
+	public void Teste06CriarUsuario(){
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("INSERT INTO EMPRESA VALUES (1,'CENTRO','00.000.000/0001-00','','SOUZA E BENETTI','386','SOUZA E BENETTI LTDA','RUA ISACO CALEGARI',5147)").executeUpdate();
@@ -5663,12 +5645,12 @@ public class CriarEstruturasBD {
 		em.close();
 	}
 	@Test
-	public void TestCriaFuncao(){
+	public void Test07CriaFuncao(){
 		EntityManager em = FabricaConexao.getEntityManager();
 		Empresa empresa = new Empresa();
 		em.getTransaction().begin();
 		empresa = em.find(Empresa.class, 1L);
-		em.merge(new Funcao(null, "Bla", empresa));
+		em.merge(new Funcao(null, "Teste", empresa));
 		em.getTransaction().commit();
 		em.close();
 	}
