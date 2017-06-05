@@ -24,6 +24,7 @@ public class Usuario implements Serializable {
 	private String cpf;
 	private String senha;
 	private String usuario;
+	private Long grauAcesso;
 	@ManyToOne
 	private Cidade codcidade;
 	@ManyToOne
@@ -67,6 +68,12 @@ public class Usuario implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+	public Long getGrauAcesso() {
+		return grauAcesso;
+	}
+	public void setGrauAcesso(Long grauAcesso) {
+		this.grauAcesso = grauAcesso;
 	}
 	public Cidade getCodcidade() {
 		return codcidade;

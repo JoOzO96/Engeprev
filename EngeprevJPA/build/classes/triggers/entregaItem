@@ -1,0 +1,29 @@
+CREATE OR REPLACE FUNCTION entregaepiitem_estoque() returns trigger as $$
+declare
+	v_quantidade_antiga 	FLOAT;		
+	v_valorultimacompra	FLOAT;	
+	v_quantidadecomprada	FLOAT;	
+begin		
+	if (TG_OP = 'INSERT') then		
+		v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);		
+		v_quantidade_antiga = v_quantidade_antiga - new.quantidade;		
+		update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;		
+		return new;		
+	ELSIF (TG_OP = 'UPDATE') then		
+		v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = old.id_epi_id_epi);		
+		v_quantidade_antiga = v_quantidade_antiga + old.quantidade;		
+		update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;				
+		v_quantidade_antiga = (SELECT quantidade FROM epi where id_epi = new.id_epi_id_epi);		
+		v_quantidade_antiga = v_quantidade_antiga - new.quantidade;		
+		update epi set quantidade = v_quantidade_antiga where id_epi = new.id_epi_id_epi;		
+		return new;				
+	ELSIF (TG_OP = 'DELETE') then		
+		v_quantidade_antiga = (SELECT quantidade FROM  epi where id_epi = old.id_epi_id_epi);									
+		v_quantidade_antiga = v_quantidade_antiga + old.quantidade;		
+		update epi set quantidade = v_quantidade_antiga where id_epi = old.id_epi_id_epi;		
+		return old;		
+	END IF;	
+end;$$ 
+LANGUAGE plpgsql;
+
+CREATE TRIGGER entregaepiitem_estoque after INSERT OR UPDATE OR DELETE ON entregaepiitem FOR EACH ROW EXECUTE PROCEDURE entregaepiitem_estoque();

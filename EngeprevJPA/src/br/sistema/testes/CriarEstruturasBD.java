@@ -5640,12 +5640,12 @@ public class CriarEstruturasBD {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("INSERT INTO EMPRESA VALUES (1,'CENTRO','00.000.000/0001-00','','SOUZA E BENETTI','386','SOUZA E BENETTI LTDA','RUA ISACO CALEGARI',5147)").executeUpdate();
-		em.createNativeQuery("INSERT INTO USUARIO VALUES (1,'JOSE','012.840.180-08','admin','admin',5147,1);").executeUpdate();	
+		em.createNativeQuery("INSERT INTO USUARIO VALUES (1,'012.840.180-08',1,'JOSE','admin','admin',5147,1);").executeUpdate();	
 		em.getTransaction().commit();
 		em.close();
 	}
 	@Test
-	public void Test07CriaFuncao(){
+	public void Teste07CriaFuncao(){
 		EntityManager em = FabricaConexao.getEntityManager();
 		Empresa empresa = new Empresa();
 		em.getTransaction().begin();

@@ -42,6 +42,10 @@
 							url="/faces/Cadastros/Entrada/EntradaList.xhtml" target="centro"></p:menuitem>
 						<p:menuitem value="Fornecedores" icon="fa fa-plus fa-lg"
 							url="/faces/Cadastros/Fornecedor/FornecedorList.xhtml" target="centro"></p:menuitem>
+						<p:menuitem value="Usuarios" icon="fa fa-plus fa-lg" rendered="#{loginControle.usuarioLogado.grauAcesso == 1}"
+							url="/faces/Cadastros/Usuario/UsuarioList.xhtml" target="centro"></p:menuitem>
+						<p:menuitem value="Empresas" icon="fa fa-plus fa-lg" rendered="#{loginControle.usuarioLogado.grauAcesso == 1}"
+							url="/faces/Cadastros/Empresa/EmpresaList.xhtml" target="centro"></p:menuitem>
 						<p:menuitem value="Sair" action="#{loginControle.sair()}"
 							icon="fa fa-arrow-down fa-lg" />
 					</p:menubar>
