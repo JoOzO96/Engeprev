@@ -29,8 +29,13 @@ public class FornecedorCrud {
 		RetornaUsuarioLogado logado = new RetornaUsuarioLogado();
 		usuario = logado.retornaUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
+		if(usuario.getGrauAcesso()==1){
+			lista = em.createQuery("from Fornecedor")
+					.getResultList();
+		}else{
 		lista = em.createQuery("from Fornecedor where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
 				.getResultList();
+		}
 		em.close();
 	}
 

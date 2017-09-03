@@ -29,9 +29,14 @@ public class EntradaCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em
-				.createQuery("from Entrada where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
-				.getResultList();
+		if (usuario.getGrauAcesso() == 1) {
+			lista = em.createQuery("from Entrada").getResultList();
+		} else {
+			lista = em
+					.createQuery(
+							"from Entrada where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+					.getResultList();
+		}
 		em.close();
 	}
 
@@ -41,24 +46,35 @@ public class EntradaCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<EPI> results = em
-				.createQuery("from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
-						+ "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + " order by nome")
-				.getResultList();
+		List<EPI> results = null;
+		if (usuario.getGrauAcesso() == 1) {
+			results = em.createQuery("from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%'")
+					.getResultList();
+		} else {
+			results = em.createQuery("from EPI where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
+					+ "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + " order by nome")
+					.getResultList();
+		}
 		em.close();
 		return results;
 	}
-	
+
 	public List<Fornecedor> completeFornecedor(String query) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<Fornecedor> results = em
-				.createQuery("from Fornecedor where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' "
-						+ "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa() + " order by nome")
-				.getResultList();
+		List<Fornecedor> results = null;
+		if (usuario.getGrauAcesso() == 1) {
+			results = em
+					.createQuery("from Fornecedor where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' ")
+					.getResultList();
+		} else {
+			results = em.createQuery("from Fornecedor where upper(nome) like " + "'" + query.trim().toUpperCase()
+					+ "%' " + "and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa()
+					+ " order by nome").getResultList();
+		}
 		em.close();
 		return results;
 	}

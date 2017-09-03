@@ -34,8 +34,12 @@ public class EpiCrud {
 		RetornaUsuarioLogado logado = new RetornaUsuarioLogado();
 		usuario = logado.retornaUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from EPI where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
-				.getResultList();
+		if (usuario.getGrauAcesso() == 1) {
+			lista = em.createQuery("from EPI").getResultList();
+		} else {
+			lista = em.createQuery("from EPI where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+					.getResultList();
+		}
 		em.close();
 	}
 
@@ -92,7 +96,7 @@ public class EpiCrud {
 						retorna.setSummary("Nao é possivel excluir a EPI, pois ele esta vinculado a um Funcionario");
 					} else {
 						retorna.setSummary("Nao é possivel excluir a EPI, erro nao conhecido, contate o suporte!!");
-					} 
+					}
 				}
 				err = err.getCause();
 			}

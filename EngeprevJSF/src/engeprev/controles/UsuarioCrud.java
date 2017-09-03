@@ -29,10 +29,14 @@ public class UsuarioCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em
-				.createQuery(
-						"from Usuario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
-				.getResultList();
+		if (usuario.getGrauAcesso() == 1) {
+			lista = em.createQuery("from Usuario").getResultList();
+		} else {
+			lista = em
+					.createQuery(
+							"from Usuario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+					.getResultList();
+		}
 		em.close();
 	}
 
@@ -44,12 +48,11 @@ public class UsuarioCrud {
 		em.close();
 		return results;
 	}
-	
+
 	public List<Cidade> completeEmpresa(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<Cidade> results = em.createQuery(
-				"from Empresa where upper(nomefantasia) like " + "'" + query.trim().toUpperCase() + "%' " + "order by nomefantasia")
-				.getResultList();
+		List<Cidade> results = em.createQuery("from Empresa where upper(nomefantasia) like " + "'"
+				+ query.trim().toUpperCase() + "%' " + "order by nomefantasia").getResultList();
 		em.close();
 		return results;
 	}
@@ -67,9 +70,9 @@ public class UsuarioCrud {
 	public String gravar() {
 		EntityManager em = FabricaConexao.getEntityManager();
 		em.getTransaction().begin();
-		if (usuario.getId_empresa() == objeto.getId_empresa()){
-		objeto.setId_empresa(usuario.getId_empresa());
-		}else{
+		if (usuario.getId_empresa() == objeto.getId_empresa()) {
+			objeto.setId_empresa(usuario.getId_empresa());
+		} else {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
@@ -125,8 +128,7 @@ public class UsuarioCrud {
 					if (erro.contains("pedido")) {
 						retorna.setSummary("Nao é possivel excluir o Usuario, pois ele esta vinculado a um Pedido");
 					} else if (erro.contains("Usuarioendereco")) {
-						retorna.setSummary(
-								"Nao é possivel excluir o Usuario, pois ela esta vinculada a um Usuario");
+						retorna.setSummary("Nao é possivel excluir o Usuario, pois ela esta vinculada a um Usuario");
 					} else {
 						retorna.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
 					}

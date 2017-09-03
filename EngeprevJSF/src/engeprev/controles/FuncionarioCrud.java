@@ -32,10 +32,17 @@ public class FuncionarioCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
+		if(usuario.getGrauAcesso()==1){
+			lista = em
+					.createQuery(
+							"from Funcionario")
+					.getResultList();
+		}else{
 		lista = em
 				.createQuery(
 						"from Funcionario where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
 				.getResultList();
+		}
 		em.close();
 	}
 
@@ -133,13 +140,12 @@ public class FuncionarioCrud {
 						retorna.setSummary(
 								"Nao é possivel excluir o Funcionario, pois ela esta vinculada a um Funcionario");
 					} else {
-						retorna.setSummary("Nao é possivel excluir a Situacao, pois ela é padrao do sistema");
+						retorna.setSummary("Nao é possivel excluir o FUncionario, pois ele é padrao do sistema");
 					}
 				}
 				err = err.getCause();
 			}
 			FacesContext.getCurrentInstance().addMessage(null, retorna);
-			System.out.println(retorna.toString());
 			return "";
 		}
 	}

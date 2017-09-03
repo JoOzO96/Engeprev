@@ -29,8 +29,14 @@ public class FuncaoCrud {
 		RetornaUsuarioLogado logado = new RetornaUsuarioLogado();
 		usuario = logado.retornaUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em.createQuery("from Funcao where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
-				.getResultList();
+		if (usuario.getGrauAcesso()==1){
+			lista = em.createQuery("from Funcao")
+					.getResultList();
+		}else{
+			lista = em.createQuery("from Funcao where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+					.getResultList();
+		}
+		
 		em.close();
 	}
 

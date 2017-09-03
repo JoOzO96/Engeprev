@@ -29,10 +29,14 @@ public class EntregaEpiCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		lista = em
-				.createQuery(
-						"from EntregaEpi where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
-				.getResultList();
+		if (usuario.getGrauAcesso() == 1) {
+			lista = em.createQuery("from EntregaEpi").getResultList();
+		} else {
+			lista = em
+					.createQuery(
+							"from EntregaEpi where id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa())
+					.getResultList();
+		}
 		em.close();
 	}
 
@@ -42,20 +46,27 @@ public class EntregaEpiCrud {
 		LoginControle loginControle = (LoginControle) session.getAttribute("controleLogin");
 		usuario = loginControle.getUsuarioLogado();
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<Funcionario> results = em.createQuery(
-				"from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%' " + " and id_empresa_id_empresa = "+ usuario.getId_empresa().getId_empresa() +" order by nome")
-				.getResultList();
+		List<Funcionario> results = null;
+		if (usuario.getGrauAcesso() == 1) {
+			results = em
+					.createQuery("from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase() + "%'")
+					.getResultList();
+		} else {
+			results = em.createQuery("from Funcionario where upper(nome) like " + "'" + query.trim().toUpperCase()
+					+ "%' " + " and id_empresa_id_empresa = " + usuario.getId_empresa().getId_empresa()
+					+ " order by nome").getResultList();
+		}
 		em.close();
-		System.out.println(results);
 		return results;
 	}
 
 	public List<EPI> completeEPI(String query) {
 		EntityManager em = FabricaConexao.getEntityManager();
-		List<EPI> results = em
-				.createNativeQuery(
-						"SELECT e.*FROM EPI e INNER JOIN FUNCIONARIOEPI fe ON e.id_epi = fe.fk_epi_id_epi where fe.fk_funcionario_id_funcionario = " + objeto.getId_funcionario().getId_funcionario()  +" and upper(e.nome) like " + "'" + query.trim().toUpperCase() + "%' " + "order by e.nome",EPI.class)
-				.getResultList();
+		List<EPI> results = em.createNativeQuery(
+				"SELECT e.*FROM EPI e INNER JOIN FUNCIONARIOEPI fe ON e.id_epi = fe.fk_epi_id_epi where fe.fk_funcionario_id_funcionario = "
+						+ objeto.getId_funcionario().getId_funcionario() + " and upper(e.nome) like " + "'"
+						+ query.trim().toUpperCase() + "%' " + "order by e.nome",
+				EPI.class).getResultList();
 		em.close();
 		return results;
 	}
